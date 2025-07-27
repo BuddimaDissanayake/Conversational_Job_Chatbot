@@ -11,13 +11,8 @@ from langchain.schema import Document
 from langchain.vectorstores import Chroma
 from langchain.embeddings import HuggingFaceEmbeddings
 
-# Initialize FastAPI app
 app = FastAPI()
 
-# === CONFIG ===
-# Adjust paths relative to where main.py is located.
-# Assuming main.py is in 'buddima/chatbot1/', these paths point to
-# 'buddima/chatbot1/data/job_descriptions_large.csv' and 'buddima/chatbot1/chroma_db/'
 CSV_PATH = "./data/job_descriptions_large.csv"
 CHROMA_DIR = "./chroma_db"
 
