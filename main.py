@@ -47,7 +47,7 @@ async def startup_event():
 
     # Check if the ChromaDB directory already exists to decide whether to create or load.
     if not os.path.exists(CHROMA_DIR):
-        print("📦 Creating new Chroma vector DB...")
+        print("Creating new Chroma vector DB")
         # Load job descriptions from the CSV file into a pandas DataFrame.
         df = pd.read_csv(CSV_PATH)
 
@@ -61,12 +61,12 @@ async def startup_event():
         # Create the Chroma vector store from the documents and embeddings, then persist it to disk.
         vector_db = Chroma.from_documents(documents, embedding=embedding, persist_directory=CHROMA_DIR)
         vector_db.persist() # Save the vector database to the specified directory
-        print("✅ New Chroma vector DB created and persisted.")
+        print("Chroma vector DB created")
     else:
-        print("✅ Loading existing Chroma vector DB...")
+        print("Loading existing Chroma vector DB")
         # Load the existing Chroma vector store from the specified directory.
         vector_db = Chroma(persist_directory=CHROMA_DIR, embedding_function=embedding)
-        print("✅ Chroma vector DB loaded.")
+        print("Chroma vector DB loaded.")
 
     # --- STEP 2: Setup LLM (Ollama) & Prompt ---
     try:
@@ -74,7 +74,7 @@ async def startup_event():
         llm = Ollama(model="llama3")
         # A small test invocation to ensure the Ollama server and model are accessible.
         llm.invoke("Hello")
-        print("✅ Ollama model 'llama3' loaded successfully.")
+        print("Ollama model 'llama3' loaded successfully.")
     except Exception as e:
         print(f"ERROR: Could not load Ollama model: {e}")
         print("Please ensure the Ollama server is running and the 'llama3' model is downloaded.")
@@ -114,7 +114,7 @@ Respond in this exact format:
 
     # Create an LLMChain that combines the LLM and the prompt template.
     chain = LLMChain(llm=llm, prompt=prompt_template)
-    print("✅ LLM chain initialized.")
+    print("LLM chain initialized.")
 
 # --- API Endpoints ---
 
